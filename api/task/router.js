@@ -15,7 +15,7 @@ router.get('/', async (_, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', validatePost, async (req, res) => {
     try {
         const data = await model.insert(req.body)
         
@@ -24,5 +24,15 @@ router.post('/', async (req, res) => {
         res.status(404).json(err.message)
     }
 })
+
+
+function validatePost(req, res, next) {
+
+    if(!req.body.description || !req.body.project_id) {
+        res.status(400).json({message: 'description is required'})
+    } else {
+        next()
+    }
+}
 
 module.exports = router

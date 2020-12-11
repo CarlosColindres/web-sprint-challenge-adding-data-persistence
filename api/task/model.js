@@ -6,16 +6,16 @@ module.exports = {
     getAll() {
       return db("tasks as t")
         .join("projects as p", "t.project_id", "p.id")
+        .select(
+            "p.name as project_name",
+            "p.description as project_description",
+            "t.description",'t.notes', 't.completed'
+          )
         .then((res) =>
           res.map((item) => {
             return { ...item, completed: item.completed ? true : false };
           })
         );
-      // .select(
-      //   "p.name as project_name",
-      //   "p.description as project_description",
-      //   "t.description"
-      // );
     },
     insert(task) {
       return db("tasks")
