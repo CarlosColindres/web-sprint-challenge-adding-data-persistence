@@ -15,14 +15,23 @@ router.get('/', async (_, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', validatePost, async (req, res) => {
     try {
-        const data = await model.insert(req.body)
+            const data = await model.insert(req.body)
+            res.status(200).json(data)
         
-        res.status(200).json(data)
     } catch (error) {
         res.status(404).json(err.message)
     }
 })
+
+function validatePost(req, res, next) {
+
+    if(!req.body.name) {
+        res.status(400).json({message: 'name is required'})
+    } else {
+        next()
+    }
+}
 
 module.exports = router

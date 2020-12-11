@@ -4,7 +4,7 @@ exports.up = function(knex) {
       table.increments()
       table.string('name', 30).notNullable()
       table.string('description', 128)
-      table.boolean('completed').notNullable().defaultTo(0)
+      table.boolean('completed').notNullable().defaultTo(false)
   }).createTable('resources', table => {
       table.increments()
       table.string('name', 30).notNullable().unique()
@@ -13,14 +13,14 @@ exports.up = function(knex) {
       table.increments()
       table.string('description', 128).notNullable()
       table.string('notes', 128)
-      table.boolean('completed').defaultTo(0)
+      table.boolean('completed').defaultTo(false)
 
       table.integer('project_id')
         .unsigned()
         .notNullable()
         .references('id')
         .inTable('projects')
-        .onUpdate('RESTRICT')
+        .onUpdate('CASCADE')
         .onDelete('RESTRICT')
         
   }).createTable('projects_resources', table => {
@@ -31,7 +31,7 @@ exports.up = function(knex) {
     .notNullable()
     .references('id')
     .inTable('projects')
-    .onUpdate('RESTRICT')
+    .onUpdate('CASCADE')
     .onDelete('RESTRICT')
 
     table.integer('resource_id')
@@ -39,7 +39,7 @@ exports.up = function(knex) {
     .notNullable()
     .references('id')
     .inTable('resources')
-    .onUpdate('RESTRICT')
+    .onUpdate('CASCADE')
     .onDelete('RESTRICT')
   })
 

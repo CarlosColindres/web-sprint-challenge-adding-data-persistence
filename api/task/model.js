@@ -4,7 +4,7 @@ const db = require('../../data/dbConfig')
 
 module.exports = {
     getAll() {
-        return db('tasks as t').join('projects as p', 't.projects_id', 'p.project_id').select('p.project_name', 'p.project_description', 'task_description')
+        return db('tasks as t').join('projects as p', 't.project_id', 'p.id').select('p.name', 'p.description', 'description')
     },
     insert(task) {
         return db('taks')
