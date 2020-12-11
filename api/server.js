@@ -12,9 +12,9 @@ server.use(express.json())
 
 server.use('/api/projects', projectRouter)
 
-server.use('/api/resources', taskRouter)
+server.use('/api/resources', resourceRouter)
 
-server.use('/api/tasks', resourceRouter)
+server.use('/api/tasks', taskRouter)
 
 server.get('/', (_, res) => {
     res.status(200).json('Welcome to my api')
