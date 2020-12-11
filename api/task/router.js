@@ -11,7 +11,7 @@ router.get('/', async (_, res) => {
 
         res.status(200).json(data)
     } catch (error) {
-        res.status(404).json(err.message)
+        res.status(404).json(error.message)
     }
 })
 
@@ -21,7 +21,7 @@ router.post('/', validatePost, async (req, res) => {
         
         res.status(200).json(data)
     } catch (error) {
-        res.status(404).json(err.message)
+        res.status(404).json(error.message)
     }
 })
 
